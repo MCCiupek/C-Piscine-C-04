@@ -6,21 +6,18 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 10:38:35 by mciupek           #+#    #+#             */
-/*   Updated: 2019/06/13 21:53:19 by mciupek          ###   ########.fr       */
+/*   Updated: 2019/06/17 18:51:27 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
-#include <stdlib.h>
 
 int		ft_spaces(char *str)
 {
 	int i;
 
 	i = 0;
-	while ((str[i] < '0' || str [i] > '9') && str[i] != '-' && str[i] != '+')
+	while ((str[i] < '0' || str[i] > '9') && str[i] != '-' && str[i] != '+')
 	{
-		if (str[i] != '\t' && str[i] != '\n' && str[i] != '\v' && 
+		if (str[i] != '\t' && str[i] != '\n' && str[i] != '\v' &&
 			str[i] != '\f' && str[i] != '\r' && str[i] != ' ')
 			return (-1);
 		i++;
@@ -30,8 +27,8 @@ int		ft_spaces(char *str)
 
 int		ft_atoi(char *str)
 {
-	int 	i;
-	int 	signe;
+	int		i;
+	int		signe;
 	long	nb;
 
 	i = ft_spaces(str);
@@ -50,21 +47,8 @@ int		ft_atoi(char *str)
 		nb = nb * 10 + (str[i] - '0');
 		i++;
 	}
+	nb = signe * nb;
 	if (nb < -2147483648 || nb > 2147483647)
 		return (0);
-	return ((int)signe * nb);
-}
-
-int 	main(int argc, char **argv)
-{
-	int nb;
-	int nb1;
-	
-	if (argc != 2)
-		return (0);
-
-	nb = ft_atoi(argv[1]);
-	nb1 = atoi(argv[1]);
-	printf("%c\n", argv[1][0]); 
-	printf("ft = %d\natoi = %d", nb, nb1);
+	return ((int)nb);
 }

@@ -6,30 +6,18 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 10:09:49 by mciupek           #+#    #+#             */
-/*   Updated: 2019/06/15 02:16:34 by mciupek          ###   ########.fr       */
+/*   Updated: 2019/06/17 18:24:06 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
-int		ft_strlen(char *str)
+int		ft_strstr(char *str, char to_find, int k)
 {
-	int	i;
+	int		i;
 
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-int		ft_strstr(char *str, char c, int k)
-{
-	int	i;
-
-	i = k;
+	i = k + 1;
 	while (str[i] != '\0')
 	{
-		if (str[i] == c)
+		if (str[i] == to_find)
 			return (i);
 		i++;
 	}
@@ -40,28 +28,32 @@ int		ft_check_base(char *base)
 {
 	char	*pet;
 	int		i;
+	int		len_base;
 
+	len_base = 0;
 	i = 0;
 	pet = "+-\t\n\r\v\f ";
-	if (ft_strlen(base) < 2)
-		return (0);
-	while (ft_strstr(base, base[i], i + 1) != -1 && i <= ft_strlen(base))
+	while (base[len_base] != '\0')
+		len_base++;
+	while (i <= len_base)
 	{
+		if (ft_strstr(base, base[i], i) != -1)
+			return (0);
 		i++;
-		return (0);
 	}
 	i = 0;
-	while (ft_strstr(base, pet[i], i + 1) != -1 && i <= ft_strlen(pet))
+	while (i <= 8)
 	{
+		if (ft_strstr(base, pet[i], -1) != -1)
+			return (0);
 		i++;
-		return (0);
 	}
-	return (1);
+	return (len_base);
 }
 
 int		ft_spaces(char *str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while ((str[i] < '0' || str[i] > '9') && str[i] != '-' && str[i] != '+')
@@ -74,20 +66,37 @@ int		ft_spaces(char *str)
 	return (i);
 }
 
+long	ft_convert(char *str, char *base, int i, int b)
+{
+	int		len_nb;
+	long	b_pow;
+	long	nb;
+
+	len_nb = 0;
+	b_pow = 1;
+	nb = 0;
+	while (ft_strstr(base, str[i + len_nb], -1) != -1)
+		len_nb++;
+	while (--len_nb + 1 > 0)
+	{
+		nb = nb + ft_strstr(base, str[i + len_nb], -1) * b_pow;
+		b_pow = b_pow * b;
+	}
+	return (nb);
+}
+
 int		ft_atoi_base(char *str, char *base)
 {
 	int		i;
-	int 	k;
-	int 	signe;
+	int		signe;
+	int		b;
 	long	nb;
-	long	bp;
 
+	nb = 0;
 	i = ft_spaces(str);
 	signe = 1;
-	nb = 0;
-	bp = 1;
-	k = 0;
-	if (ft_check_base(base) != 1 || i == -1)
+	b = ft_check_base(base);
+	if (b == 0 || i == -1)
 		return (0);
 	while (str[i] == '+' || str[i] == '-')
 	{
@@ -95,24 +104,8 @@ int		ft_atoi_base(char *str, char *base)
 			signe = signe * -1;
 		i++;
 	}
-	while (ft_strstr(base, str[i + k], 0) != -1)
-		k++;
-	while (--k >= 0)
-	{
-		nb = nb + ft_strstr(base, str[i + k], 0) * bp;
-		bp = bp * ft_strlen(base);
-	}
+	nb = signe * ft_convert(str, base, i, b);
 	if (nb < -2147483648 || nb > 2147483647)
 		return (0);
-	return ((int)signe * nb);
-}
-
-int		main(int argc, char **argv)
-{
-	int nb;
-
-	if (argc != 3)
-		return (0);
-	nb = ft_atoi_base(argv[1], argv[2]);
-	printf("ft = %d", nb);
+	return ((int)nb);
 }
