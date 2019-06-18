@@ -6,7 +6,7 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 21:54:28 by mciupek           #+#    #+#             */
-/*   Updated: 2019/06/17 14:28:58 by mciupek          ###   ########.fr       */
+/*   Updated: 2019/06/18 11:34:44 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ int		ft_check_base(char *base, int b)
 	int		i;
 
 	i = 0;
-	pet = "+-\t\n\r\v\f ";
+	pet = "+-";
 	if (ft_strlen(base) < 2)
 		return (0);
-	while (i <= b)
+	while (i < b)
 	{
 		if (ft_strstr(base, base[i], i) != NULL)
 			return (0);
 		i++;
 	}
 	i = 0;
-	while (i <= 8)
+	while (i < 2)
 	{
 		if (ft_strstr(base, pet[i], -1) != NULL)
 			return (0);

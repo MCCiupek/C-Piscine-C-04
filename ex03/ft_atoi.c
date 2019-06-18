@@ -6,7 +6,7 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 10:38:35 by mciupek           #+#    #+#             */
-/*   Updated: 2019/06/17 18:51:27 by mciupek          ###   ########.fr       */
+/*   Updated: 2019/06/18 00:18:32 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_atoi(char *str)
 {
 	int		i;
 	int		signe;
-	long	nb;
+	int		nb;
 
 	i = ft_spaces(str);
 	if (i == -1)
@@ -48,7 +48,5 @@ int		ft_atoi(char *str)
 		i++;
 	}
 	nb = signe * nb;
-	if (nb < -2147483648 || nb > 2147483647)
-		return (0);
-	return ((int)nb);
+	return (nb);
 }

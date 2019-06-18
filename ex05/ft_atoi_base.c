@@ -6,7 +6,7 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 10:09:49 by mciupek           #+#    #+#             */
-/*   Updated: 2019/06/17 18:24:06 by mciupek          ###   ########.fr       */
+/*   Updated: 2019/06/18 01:12:41 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int		ft_spaces(char *str)
 	return (i);
 }
 
-long	ft_convert(char *str, char *base, int i, int b)
+int		ft_convert(char *str, char *base, int i, int b)
 {
 	int		len_nb;
-	long	b_pow;
-	long	nb;
+	int		b_pow;
+	int		nb;
 
 	len_nb = 0;
 	b_pow = 1;
@@ -90,13 +90,13 @@ int		ft_atoi_base(char *str, char *base)
 	int		i;
 	int		signe;
 	int		b;
-	long	nb;
+	int		nb;
 
 	nb = 0;
 	i = ft_spaces(str);
 	signe = 1;
 	b = ft_check_base(base);
-	if (b == 0 || i == -1)
+	if (b < 2 || i == -1)
 		return (0);
 	while (str[i] == '+' || str[i] == '-')
 	{
@@ -105,7 +105,5 @@ int		ft_atoi_base(char *str, char *base)
 		i++;
 	}
 	nb = signe * ft_convert(str, base, i, b);
-	if (nb < -2147483648 || nb > 2147483647)
-		return (0);
-	return ((int)nb);
+	return (nb);
 }
