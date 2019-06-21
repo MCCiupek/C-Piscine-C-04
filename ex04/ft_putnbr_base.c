@@ -6,7 +6,7 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 21:54:28 by mciupek           #+#    #+#             */
-/*   Updated: 2019/06/18 11:34:44 by mciupek          ###   ########.fr       */
+/*   Updated: 2019/06/21 00:14:15 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		ft_check_base(char *base, int b)
 	return (1);
 }
 
-void	ft_write_putnbr_base(int nbr, char *base, int b)
+void	ft_write_putnbr_base(long nbr, char *base, int b)
 {
 	int r;
 
@@ -73,14 +73,16 @@ void	ft_write_putnbr_base(int nbr, char *base, int b)
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	int b;
+	int		b;
+	long	nb;
 
+	nb = (long)nbr;
 	b = ft_strlen(base);
 	if (nbr < 0)
 	{
 		write(1, &"-", 1);
-		nbr = -nbr;
+		nb = -nb;
 	}
 	if (ft_check_base(base, b) == 1)
-		ft_write_putnbr_base(nbr, base, b);
+		ft_write_putnbr_base(nb, base, b);
 }
